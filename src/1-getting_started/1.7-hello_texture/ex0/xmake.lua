@@ -1,0 +1,6 @@
+target("1.7-hello_texture")
+    set_kind("binary")
+    add_rules("utils.bin2c", {extensions = {".fs", ".vs"}})
+    add_files("shader.*")
+    add_files("main.cpp")
+    add_packages("glfw", "glad", "stb", "glm")
