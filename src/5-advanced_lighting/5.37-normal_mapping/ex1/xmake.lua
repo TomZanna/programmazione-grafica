@@ -1,0 +1,6 @@
+target("5.37-normal_mapping")
+    set_kind("binary")
+    add_rules("utils.bin2c", {extensions = {".fs", ".vs"}})
+    add_files("*.vs", "*.fs")
+    add_files("main.cpp")
+    add_packages("glfw", "glad", "stb", "glm", "assimp")
