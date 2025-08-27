@@ -1,0 +1,6 @@
+target("skeleton_animation")
+    set_kind("binary")
+    add_files("*.cpp")
+    add_includedirs(".")
+    add_packages("glfw", "glad", "glm", "stb", "assimp")
+    add_defines("PROJECT_DIR=\"$(projectdir)\"")
