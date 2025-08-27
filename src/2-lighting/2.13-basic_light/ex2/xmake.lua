@@ -1,0 +1,6 @@
+target("2.13-basic_light-ex2")
+    set_kind("binary")
+    add_rules("utils.bin2c", {extensions = {".fs", ".vs"}})
+    add_files("*.vs", "*.fs")
+    add_files("main.cpp")
+    add_packages("glfw", "glad", "stb", "glm")
