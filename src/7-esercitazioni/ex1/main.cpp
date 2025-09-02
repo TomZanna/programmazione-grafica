@@ -10,7 +10,8 @@
 #include "learnopengl/model.h"
 #include "learnopengl/shader.h"
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void key_callback(GLFWwindow *window, int key, int scancode, int action,
+                  int mods);
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
@@ -83,64 +84,37 @@ int main() {
   Model ourModel(PROJECT_ROOT_DIR "resources/cyborg/cyborg.obj");
 
   float vertices[] = {
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
+      -0.5f, -0.5f, -0.5f, 0.5f,  -0.5f, -0.5f, 0.5f,  0.5f,  -0.5f,
+      0.5f,  0.5f,  -0.5f, -0.5f, 0.5f,  -0.5f, -0.5f, -0.5f, -0.5f,
 
-        -0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
+      -0.5f, -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  0.5f,  0.5f,
+      0.5f,  0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  -0.5f, -0.5f, 0.5f,
 
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
+      -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  -0.5f, -0.5f, -0.5f, -0.5f,
+      -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f,  -0.5f, 0.5f,  0.5f,
 
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
+      0.5f,  0.5f,  0.5f,  0.5f,  0.5f,  -0.5f, 0.5f,  -0.5f, -0.5f,
+      0.5f,  -0.5f, -0.5f, 0.5f,  -0.5f, 0.5f,  0.5f,  0.5f,  0.5f,
 
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
+      -0.5f, -0.5f, -0.5f, 0.5f,  -0.5f, -0.5f, 0.5f,  -0.5f, 0.5f,
+      0.5f,  -0.5f, 0.5f,  -0.5f, -0.5f, 0.5f,  -0.5f, -0.5f, -0.5f,
 
-        -0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f
-    };
+      -0.5f, 0.5f,  -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  0.5f,
+      0.5f,  0.5f,  0.5f,  -0.5f, 0.5f,  0.5f,  -0.5f, 0.5f,  -0.5f};
 
-    std::vector<glm::vec3> pointLightPositions = {
-        glm::vec3(0.0f,  3.5f,  0.0f),
-        glm::vec3(-1.0f, 2.0f, -1.0f)
-    };
+  std::vector<glm::vec3> pointLightPositions = {glm::vec3(0.0f, 3.5f, 0.0f),
+                                                glm::vec3(-1.0f, 2.0f, -1.0f)};
 
-    unsigned int VBO, lightCubeVAO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glGenVertexArrays(1, &lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glBindVertexArray(0);
+  unsigned int VBO, lightCubeVAO;
+  glGenBuffers(1, &VBO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glGenVertexArrays(1, &lightCubeVAO);
+  glBindVertexArray(lightCubeVAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(0);
+  glBindVertexArray(0);
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
@@ -162,7 +136,8 @@ int main() {
     // point light 1
     float light_mov_x = pointLightPositions[0].x + sin(glfwGetTime()) * 1.5;
     float light_mov_z = pointLightPositions[0].z + cos(glfwGetTime()) * 1.5;
-    lightingShader.setVec3("pointLights[0].position", light_mov_x, pointLightPositions[0].y, light_mov_z);
+    lightingShader.setVec3("pointLights[0].position", light_mov_x,
+                           pointLightPositions[0].y, light_mov_z);
     lightingShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
     lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
     lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
@@ -200,25 +175,26 @@ int main() {
     lightingShader.setMat4("view", view);
     glm::mat4 model = glm::mat4(1.0f);
     lightingShader.setMat4("model", model);
-    
+
     ourModel.Draw(lightingShader);
 
     cubeShader.use();
     cubeShader.setMat4("projection", projection);
     cubeShader.setMat4("view", view);
     glBindVertexArray(lightCubeVAO);
-    for (unsigned int i = 0; i < pointLightPositions.size(); i++)
-    {
-        model = glm::mat4(1.0f);
+    for (unsigned int i = 0; i < pointLightPositions.size(); i++) {
+      model = glm::mat4(1.0f);
 
-        if (i == 0)
-            model = glm::translate(model, glm::vec3(light_mov_x, pointLightPositions[0].y, light_mov_z));
-        else
-            model = glm::translate(model, pointLightPositions[i]);
+      if (i == 0)
+        model = glm::translate(
+            model,
+            glm::vec3(light_mov_x, pointLightPositions[0].y, light_mov_z));
+      else
+        model = glm::translate(model, pointLightPositions[i]);
 
-        model = glm::scale(model, glm::vec3(0.2f));
-        cubeShader.setMat4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+      model = glm::scale(model, glm::vec3(0.2f));
+      cubeShader.setMat4("model", model);
+      glDrawArrays(GL_TRIANGLES, 0, 36);
     }
     glBindVertexArray(0);
 
@@ -242,10 +218,10 @@ void processInput(GLFWwindow *window) {
 }
 
 void key_callback(GLFWwindow *window, int key, int, int action, int) {
-    if (key == GLFW_KEY_E && action == GLFW_PRESS)
-        spotLight = glm::vec3(1.0f, 1.0f, 1.0f) - spotLight;
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+  if (key == GLFW_KEY_E && action == GLFW_PRESS)
+    spotLight = glm::vec3(1.0f, 1.0f, 1.0f) - spotLight;
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, true);
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {

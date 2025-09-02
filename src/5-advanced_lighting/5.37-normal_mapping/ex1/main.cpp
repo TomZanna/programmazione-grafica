@@ -68,8 +68,10 @@ int main() {
 
   Shader shader(v_shader, f_shader);
 
-  unsigned int diffuseMap = loadTexture(PROJECT_ROOT_DIR "resources/brickwall.jpg");
-  unsigned int normalMap = loadTexture(PROJECT_ROOT_DIR "resources/brickwall_normal.jpg");
+  unsigned int diffuseMap =
+      loadTexture(PROJECT_ROOT_DIR "resources/brickwall.jpg");
+  unsigned int normalMap =
+      loadTexture(PROJECT_ROOT_DIR "resources/brickwall_normal.jpg");
 
   // shader configuration
   shader.use();

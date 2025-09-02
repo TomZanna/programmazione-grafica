@@ -37,8 +37,8 @@ void AnimationScene::initScene(QuatCamera camera) {
   m_AnimatedModel = new SkeletalModel(prog);
 
   // Load the model from the given path.
-  m_AnimatedModel->LoadMesh(
-      PROJECT_DIR "/src/6-skeleton_animation/assets/Dying.fbx");
+  m_AnimatedModel->LoadMesh(PROJECT_DIR
+                            "/src/6-skeleton_animation/assets/Dying.fbx");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
