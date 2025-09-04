@@ -9,7 +9,8 @@
 #include "learnopengl/shader.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-void processInput(GLFWwindow *window);
+void key_callback(GLFWwindow *window, int key, int scancode, int action,
+                  int mods);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -41,6 +42,7 @@ int main() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetKeyCallback(window, key_callback);
 
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -58,9 +60,6 @@ int main() {
   Model ourModel(PROJECT_ROOT_DIR "resources/backpack/backpack.obj");
 
   while (!glfwWindowShouldClose(window)) {
-    // input
-    processInput(window);
-
     // render
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -90,8 +89,8 @@ int main() {
   return 0;
 }
 
-void processInput(GLFWwindow *window) {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+void key_callback(GLFWwindow *window, int key, int, int action, int) {
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 }
 

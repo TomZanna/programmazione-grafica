@@ -8,7 +8,8 @@
 #include "learnopengl/shader.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-void processInput(GLFWwindow *window);
+void key_callback(GLFWwindow *window, int key, int scancode, int action,
+                  int mods);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -42,6 +43,7 @@ int main() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetKeyCallback(window, key_callback);
 
   // glad: load all OpenGL function pointers
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -142,9 +144,6 @@ int main() {
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
-    // input
-    processInput(window);
-
     // render
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -175,8 +174,8 @@ int main() {
 
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly
-void processInput(GLFWwindow *window) {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+void key_callback(GLFWwindow *window, int key, int, int action, int) {
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 }
 

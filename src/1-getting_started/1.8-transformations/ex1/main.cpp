@@ -11,7 +11,8 @@
 #include "learnopengl/shader.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-void processInput(GLFWwindow *window);
+void key_callback(GLFWwindow *window, int key, int scancode, int action,
+                  int mods);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
@@ -23,10 +24,6 @@ const char v_shader[] = {
 const char f_shader[] = {
 #include "shader.fs.h"
 };
-
-float rotationAngle = 0.0f;
-
-bool rotateAutonomously = true;
 
 int main() {
   // glfw: initialize and configure
@@ -49,6 +46,7 @@ int main() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetKeyCallback(window, key_callback);
 
   // glad: load all OpenGL function pointers
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -142,9 +140,6 @@ int main() {
 
   // render loop
   while (!glfwWindowShouldClose(window)) {
-    // input
-    processInput(window);
-
     // render
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -185,30 +180,9 @@ int main() {
 
 // process all input: query GLFW whether relevant keys are pressed/released this
 // frame and react accordingly
-void processInput(GLFWwindow *window) {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+void key_callback(GLFWwindow *window, int key, int, int action, int) {
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
-
-  // On space press, toggle autonomous rotation
-  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-    rotateAutonomously = !rotateAutonomously;
-  }
-
-  if (!rotateAutonomously) {
-    // On D or right arrow key press, rotate clockwise
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-      rotationAngle -= 0.01f;
-    }
-
-    // On A or left arrow key press, rotate counter-clockwise
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS ||
-        glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-      rotationAngle += 0.01f;
-    }
-  } else {
-    rotationAngle += 0.01f;
-  }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback
