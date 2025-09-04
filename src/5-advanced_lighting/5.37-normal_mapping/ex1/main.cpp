@@ -112,11 +112,11 @@ int main() {
     glBindTexture(GL_TEXTURE_2D, normalMap);
     renderQuad();
 
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, lightPos);
-    model = glm::scale(model, glm::vec3(0.1f));
-    shader.setMat4("model", model);
-    renderQuad();
+    // model = glm::mat4(1.0f);
+    // model = glm::translate(model, lightPos);
+    // model = glm::scale(model, glm::vec3(0.1f));
+    // shader.setMat4("model", model);
+    // renderQuad();
 
     glfwSwapBuffers(window);
     glfwPollEvents();

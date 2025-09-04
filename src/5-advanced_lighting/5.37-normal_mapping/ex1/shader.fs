@@ -12,9 +12,6 @@ in VS_OUT {
 uniform sampler2D diffuseMap;
 uniform sampler2D normalMap;
 
-uniform vec3 lightPos;
-uniform vec3 viewPos;
-
 void main()
 {           
      // obtain normal from normal map in range [0,1]
