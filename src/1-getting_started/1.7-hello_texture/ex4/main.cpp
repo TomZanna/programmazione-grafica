@@ -1,4 +1,3 @@
-
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
@@ -56,7 +55,7 @@ int main() {
 
   // gl: send vertices to GPU
   float vertices[] = {
-      // positions          // colors           // texture coords
+      // positions        // colors         // texture coords
       0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
       0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
@@ -96,18 +95,13 @@ int main() {
   // texture 1
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
-  glTexParameteri(
-      GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
-      GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   // load image
   int width, height, nrChannels;
-  stbi_set_flip_vertically_on_load(
-      true); // tell stb_image.h to flip loaded texture's on the y-axis.
-  // The FileSystem::getPath(...) is part of the GitHub repository so we can
-  // find files on any IDE/platform; replace it with your own image path.
+  stbi_set_flip_vertically_on_load(true);
   unsigned char *data = stbi_load(PROJECT_ROOT_DIR "resources/container.jpg",
                                   &width, &height, &nrChannels, 0);
   if (data) {

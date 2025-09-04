@@ -59,7 +59,7 @@ int main() {
 
   // gl: send vertices to GPU
   float vertices[] = {
-      // positions          // texture coords
+      // positions        // texture coords
       0.5f,  0.5f,  0.0f, 1.0f, 1.0f, // top right
       0.5f,  -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
@@ -101,8 +101,7 @@ int main() {
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   // load image
   int width, height, nrChannels;
-  stbi_set_flip_vertically_on_load(
-      true); // tell stb_image.h to flip loaded texture's on the y-axis.
+  stbi_set_flip_vertically_on_load(true);
   unsigned char *data = stbi_load(PROJECT_ROOT_DIR "resources/container.jpg",
                                   &width, &height, &nrChannels, 0);
   if (data) {
@@ -124,8 +123,6 @@ int main() {
   data = stbi_load(PROJECT_ROOT_DIR "resources/awesomeface.png", &width,
                    &height, &nrChannels, 0);
   if (data) {
-    // note that the awesomeface.png has transparency and thus an alpha channel,
-    // so make sure to tell OpenGL the data type is of GL_RGBA
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA,
                  GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);

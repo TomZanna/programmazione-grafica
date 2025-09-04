@@ -1,4 +1,3 @@
-
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
@@ -56,7 +55,7 @@ int main() {
 
   // gl: send vertices to GPU
   float vertices[] = {
-      // positions          // colors           // texture coords
+      // positions        // colors         // texture coords
       0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 2.0f, 2.0f, // top right
       0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 2.0f, 0.0f, // bottom right
       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
