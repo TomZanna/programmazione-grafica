@@ -153,10 +153,8 @@ int main() {
                             glm::vec3(0.0f, 0.0f, 1.0f));
     transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 
-    // get matrix's uniform location and set matrix
     ourShader.use();
-    unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+    ourShader.setMat4("transform", transform);
 
     // render container
     glBindVertexArray(VAO);
