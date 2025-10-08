@@ -52,9 +52,9 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {    
-    // obtain normal from normal map in range [0,1]
+    // from normal map in range [0,1]
     vec3 norm = texture(texture_normal1, fs_in.TexCoords).rgb;
-    // transform normal vector to range [-1,1]
+    // to range [-1,1]
     norm = norm * 2.0 - 1.0;
     // normal in world-space
     norm = normalize(fs_in.TBN * norm);

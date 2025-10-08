@@ -12,11 +12,11 @@ uniform bool invertedNormals;
 
 void main()
 {    
-    // store the fragment position vector in the first gbuffer texture
+    // per-fragment position vector
     gPosition = FragPos;
-    // also store the per-fragment normals into the gbuffer
+    // per-fragment normals
     gNormal = normalize(Normal);
-    // and the diffuse per-fragment color
+    // diffuse per-fragment color
     if (invertedNormals)
         gAlbedo.rgb = vec3(0.95);
     else
