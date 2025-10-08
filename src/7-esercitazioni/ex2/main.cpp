@@ -45,7 +45,7 @@ const char f_geometry[] = {
 #include "geometry.fs.h"
 };
 
-bool enableSSAO = false;
+bool enableSSAO = true;
 
 float ourLerp(float a, float b, float f) { return a + f * (b - a); }
 
@@ -167,17 +167,20 @@ int main() {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
   // generate sample kernel
-  std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0);
-  std::default_random_engine generator;
+  std::uniform_real_distribution<GLfloat> randomFloat(0.0, 1.0);
+  std::default_random_engine gen;
   std::vector<glm::vec3> ssaoKernel;
   for (unsigned int i = 0; i < 64; ++i) {
-    glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0,
-                     randomFloats(generator) * 2.0 - 1.0,
-                     randomFloats(generator));
-    sample = glm::normalize(sample);
-    sample *= randomFloats(generator);
-    float scale = float(i) / 64.0f;
+    float phi = 2.0f * M_PI * randomFloat(gen);
+    float cosTheta = randomFloat(gen);
+    float sinTheta = sqrt(1.0f - cosTheta * cosTheta);
+    float r = cbrtf(randomFloat(gen));
 
+    glm::vec3 sample(r * cosf(phi) * sinTheta,
+                     r * sinf(phi) * sinTheta,
+                     r * cosTheta);
+
+    float scale = float(i) / 64.0f;
     scale = ourLerp(0.1f, 1.0f, scale * scale);
     sample *= scale;
     ssaoKernel.push_back(sample);
@@ -187,8 +190,8 @@ int main() {
   std::vector<glm::vec3> ssaoNoise;
   for (unsigned int i = 0; i < 16; i++) {
     // rotate around z-axis (in tangent space)
-    glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0,
-                    randomFloats(generator) * 2.0 - 1.0, 0.0f);
+    glm::vec3 noise(randomFloat(gen) * 2.0 - 1.0,
+                    randomFloat(gen) * 2.0 - 1.0, 0.0f);
     ssaoNoise.push_back(noise);
   }
   unsigned int noiseTexture;
@@ -252,8 +255,7 @@ int main() {
     model = glm::translate(model, glm::vec3(0.0, 7.0f, 0.0f));
     model = glm::scale(model, glm::vec3(7.5f, 7.5f, 7.5f));
     shaderGeometryPass.setMat4("model", model);
-    shaderGeometryPass.setInt("invertedNormals",
-                              1); // invert normals as we're inside the cube
+    shaderGeometryPass.setInt("invertedNormals", 1);
     renderCube();
     shaderGeometryPass.setInt("invertedNormals", 0);
     // backpack model on the floor
